@@ -49,7 +49,7 @@ public class AmenityReservation {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
-
+    
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "amenity_id")
     private Amenities amenities;
