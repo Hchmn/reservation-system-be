@@ -20,7 +20,7 @@ public interface AmenityReservationRepository extends JpaRepository<AmenityReser
     List<AmenityReservation> checkAmenityReservation(Amenities amenity, LocalDateTime startDateTime,
             LocalDateTime endDateTime);
 
-@Query("SELECT ar FROM AmenityReservation ar WHERE " +
+   @Query("SELECT ar FROM AmenityReservation ar WHERE " +
             "(CASE WHEN ?1 = '' THEN 1 ELSE 0 END = 1) OR " +
             "(LOWER(ar.status) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
             "LOWER(ar.remarks) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
@@ -28,6 +28,7 @@ public interface AmenityReservationRepository extends JpaRepository<AmenityReser
             "LOWER(ar.client.firstName) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
             "LOWER(ar.client.lastName) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
             "LOWER(ar.user.username) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-            "LOWER(ar.amenities.name) LIKE LOWER(CONCAT('%', ?1, '%')))")  
-    Page<AmenityReservation> searchAmenityReservationsByKeyword(String keyword, Pageable pageable);
+            "LOWER(ar.amenities.name) LIKE LOWER(CONCAT('%', ?1, '%'))) AND " + 
+            "(?2 = 'ALL' OR ar.status = ?2)")
+    Page<AmenityReservation> searchAmenityReservationsByKeyword(String keyword, String status, Pageable pageable);
 }

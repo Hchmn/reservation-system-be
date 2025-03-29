@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.project.reservation_system.crud.dto.amenity.reservation.AmenityReservationDTO;
 import com.project.reservation_system.crud.entity.AmenityReservation;
+import com.project.reservation_system.global.constant.AmenityReservationStatus;
 
 public interface IAmenityReservationService {
     public AmenityReservation createAmenityReservation(AmenityReservationDTO amenityReservationDTO);
@@ -15,5 +16,5 @@ public interface IAmenityReservationService {
 
     public AmenityReservation updateAmenityReservation(Long id, AmenityReservationDTO amenityReservationDTO);
 
-    public Page<AmenityReservation> searchAmenityReservation(String keyword, Pageable pageable);
+    public Page<AmenityReservation> searchAmenityReservation(String keyword, AmenityReservationStatus amenityReservationStatus, Pageable pageable);
 }

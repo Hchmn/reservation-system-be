@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.reservation_system.crud.dto.amenity.reservation.AmenityReservationDTO;
 import com.project.reservation_system.crud.entity.AmenityReservation;
 import com.project.reservation_system.crud.service.IAmenityReservationService;
+import com.project.reservation_system.global.constant.AmenityReservationStatus;
 import com.project.reservation_system.global.response.ApiResponse;
 import com.project.reservation_system.global.response.DefaultResponse;
 
@@ -60,9 +61,10 @@ public class AmenityReservationController {
 
     @GetMapping("/search")
     public ApiResponse<Page<AmenityReservation>> searchAmenityReservation(
-            @RequestParam(required = false) String keyword, Pageable pageable) {
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = true) AmenityReservationStatus amenityReservationStatus, Pageable pageable) {
 
         return DefaultResponse
-                .displayFoundObject(iAmenityReservationService.searchAmenityReservation(keyword, pageable));
+                .displayFoundObject(iAmenityReservationService.searchAmenityReservation(keyword, amenityReservationStatus, pageable));
     }
 }

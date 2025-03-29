@@ -17,6 +17,7 @@ import com.project.reservation_system.crud.repository.AmenitiesRepository;
 import com.project.reservation_system.crud.repository.AmenityReservationRepository;
 import com.project.reservation_system.crud.repository.ClientRepository;
 import com.project.reservation_system.crud.service.IAmenityReservationService;
+import com.project.reservation_system.global.constant.AmenityReservationStatus;
 
 @Transactional
 @Service
@@ -114,7 +115,7 @@ public class AmenityReservationServiceImpl implements IAmenityReservationService
     }
 
     @Override
-    public Page<AmenityReservation> searchAmenityReservation(String keyword, Pageable pageable){
-        return amenityReservationRepository.searchAmenityReservationsByKeyword(keyword, pageable);
+    public Page<AmenityReservation> searchAmenityReservation(String keyword, AmenityReservationStatus amenityReservationStatus, Pageable pageable){
+        return amenityReservationRepository.searchAmenityReservationsByKeyword(keyword, amenityReservationStatus.name(), pageable);
     }
 }
