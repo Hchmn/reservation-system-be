@@ -37,7 +37,7 @@ public class EquipmentController {
     }
 
     @GetMapping("/search")
-    public ApiResponse<Page<Equipment>> getUsers(@RequestParam(required = false) String keyword, Pageable pageable) {
+    public ApiResponse<Page<Equipment>> getEquipments(@RequestParam(required = false) String keyword, Pageable pageable) {
         Page<Equipment> result = iEquipmentService.searchEquipment(keyword, pageable);
         return DefaultResponse.displayFoundObject(result);
     }
