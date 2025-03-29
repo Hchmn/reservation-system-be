@@ -67,4 +67,9 @@ public class AmenityReservationController {
         return DefaultResponse
                 .displayFoundObject(iAmenityReservationService.searchAmenityReservation(keyword, amenityReservationStatus, pageable));
     }
+
+    @GetMapping("/dashboard")
+    public ApiResponse<?> countDashboardStatus(){
+        return DefaultResponse.displayFoundObject(iAmenityReservationService.countDashboardStatuses());
+    }
 }

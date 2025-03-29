@@ -31,4 +31,7 @@ public interface AmenityReservationRepository extends JpaRepository<AmenityReser
             "LOWER(ar.amenities.name) LIKE LOWER(CONCAT('%', ?1, '%'))) AND " + 
             "(?2 = 'ALL' OR ar.status = ?2)")
     Page<AmenityReservation> searchAmenityReservationsByKeyword(String keyword, String status, Pageable pageable);
+
+    @Query("SELECT ar.status, COUNT(ar) FROM AmenityReservation ar GROUP BY ar.status")
+    List<Object[]> countReservationsByStatus();
 }
