@@ -29,7 +29,7 @@ public class EquipmentServiceImpl implements IEquipmentService {
                 .category(equipmentDTO.getCategory())
                 .quantity(equipmentDTO.getQuantity())
                 .type(equipmentDTO.getType())
-                .condition(equipmentDTO.getCondition())
+                .status(equipmentDTO.getStatus())
                 .dateAcquired(equipmentDTO.getDateAcquired())
                 .build();
 
@@ -44,7 +44,7 @@ public class EquipmentServiceImpl implements IEquipmentService {
         equipment.setName(equipmentDTO.getName());
         equipment.setType(equipmentDTO.getType());
         equipment.setQuantity(equipmentDTO.getQuantity());
-        equipment.setCondition(equipmentDTO.getCondition());
+        equipment.setStatus(equipmentDTO.getStatus());
         equipment.setCategory(equipmentDTO.getCategory());
         equipment.setDateAcquired(equipmentDTO.getDateAcquired());
 

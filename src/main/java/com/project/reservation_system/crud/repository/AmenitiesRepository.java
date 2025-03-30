@@ -16,6 +16,6 @@ public interface AmenitiesRepository extends JpaRepository<Amenities, Long> {
             "(CASE WHEN ?1 = '' THEN 1 ELSE 0 END = 1) OR " +
             "(LOWER(a.name) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
             "CAST(a.capacity AS string) LIKE CONCAT('%', ?1, '%') OR " +
-            "LOWER(a.condition) LIKE LOWER(CONCAT('%', ?1, '%')))")
+            "LOWER(a.status) LIKE LOWER(CONCAT('%', ?1, '%')))")
     Page<Amenities> searchAmenitiesByKeyword(String keyword, Pageable pageable);
 }

@@ -18,6 +18,6 @@ public class EquipmentDTO {
     private String name;
     private String type;
     private String category;
-    private String condition;
+    private String status;
     private Date dateAcquired;
 }

@@ -14,5 +14,5 @@ import lombok.Setter;
 public class AmenityDTO {
     private String name;
     private int capacity;
-    private String condition;
+    private String status;
 }

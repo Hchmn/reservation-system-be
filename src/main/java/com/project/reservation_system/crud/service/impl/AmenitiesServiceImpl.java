@@ -27,7 +27,7 @@ public class AmenitiesServiceImpl implements IAmenitiesService {
         Amenities newAmenities = Amenities.builder()
                 .name(amenityDTO.getName())
                 .capacity(amenityDTO.getCapacity())
-                .condition(amenityDTO.getCondition())
+                .status(amenityDTO.getStatus())
                 .build();
 
         return amenitiesRepository.save(newAmenities);
@@ -43,7 +43,7 @@ public class AmenitiesServiceImpl implements IAmenitiesService {
         Amenities amenities = amenitiesRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Amenities not found with ID: " + id));
         amenities.setCapacity(amenityDTO.getCapacity());
-        amenities.setCondition(amenityDTO.getCondition());
+        amenities.setStatus(amenityDTO.getStatus());
         amenities.setName(amenityDTO.getName());
 
         return amenitiesRepository.save(amenities);

@@ -26,7 +26,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Amenities {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(name = "name")
@@ -35,8 +35,8 @@ public class Amenities {
     @Column(name = "capacity")
     private int capacity;
 
-    @Column(name = "condition")
-    private String condition;
+    @Column(name = "status")
+    private String status;
 
     @CreationTimestamp
     @Column(name = "date_created")

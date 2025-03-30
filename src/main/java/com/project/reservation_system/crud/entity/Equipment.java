@@ -26,7 +26,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Equipment {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(name = "name")
@@ -41,8 +41,8 @@ public class Equipment {
     @Column(name = "category")
     private String category;
 
-    @Column(name = "condition")
-    private String condition;
+    @Column(name = "status")
+    private String status;
 
     @Column(name = "date_acquired")
     private Date dateAcquired;
