@@ -14,9 +14,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EquipmentDTO {
+    private int quantity;
     private String name;
     private String type;
-    private int quantity;
     private String category;
+    private String condition;
     private Date dateAcquired;
 }

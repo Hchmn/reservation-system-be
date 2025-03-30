@@ -41,6 +41,9 @@ public class Equipment {
     @Column(name = "category")
     private String category;
 
+    @Column(name = "condition")
+    private String condition;
+
     @Column(name = "date_acquired")
     private Date dateAcquired;
 
