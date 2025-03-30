@@ -1,5 +1,6 @@
 package com.project.reservation_system.crud.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -22,4 +23,7 @@ public interface EquipmentReservationRepository extends JpaRepository<EquipmentR
 
     @Query("SELECT er.status, COUNT(er) FROM EquipmentReservation er GROUP BY er.status")
     List<Object[]> countReservationsByStatus();
+
+    @Query("SELECT er FROM EquipmentReservation er WHERE er.endDateTime <= :currentTime AND er.status NOT IN ('COMPLETED', 'CANCELLED')")
+    List<EquipmentReservation> findExpiredReservations(LocalDateTime currentTime);
 }

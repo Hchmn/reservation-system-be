@@ -13,25 +13,28 @@ import com.project.reservation_system.crud.entity.AmenityReservation;
 
 public interface AmenityReservationRepository extends JpaRepository<AmenityReservation, Long> {
 
-    @Query("SELECT ar FROM AmenityReservation ar WHERE ar.amenities = ?1 AND " +
-            "( (ar.startDateTime BETWEEN ?2 AND ?3) OR " +
-            "(ar.endDateTime BETWEEN ?2 AND ?3) OR " +
-            "(ar.startDateTime <= ?2 AND ar.endDateTime >= ?3) )")
-    List<AmenityReservation> checkAmenityReservation(Amenities amenity, LocalDateTime startDateTime,
-            LocalDateTime endDateTime);
+        @Query("SELECT ar FROM AmenityReservation ar WHERE ar.amenities = ?1 AND " +
+                        "( (ar.startDateTime BETWEEN ?2 AND ?3) OR " +
+                        "(ar.endDateTime BETWEEN ?2 AND ?3) OR " +
+                        "(ar.startDateTime <= ?2 AND ar.endDateTime >= ?3) )")
+        List<AmenityReservation> checkAmenityReservation(Amenities amenity, LocalDateTime startDateTime,
+                        LocalDateTime endDateTime);
 
-   @Query("SELECT ar FROM AmenityReservation ar WHERE " +
-            "(CASE WHEN ?1 = '' THEN 1 ELSE 0 END = 1) OR " +
-            "(LOWER(ar.status) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-            "LOWER(ar.remarks) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-            "LOWER(ar.purpose) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-            "LOWER(ar.client.firstName) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-            "LOWER(ar.client.lastName) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-            "LOWER(ar.user.username) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-            "LOWER(ar.amenities.name) LIKE LOWER(CONCAT('%', ?1, '%'))) AND " + 
-            "(?2 = 'ALL' OR ar.status = ?2)")
-    Page<AmenityReservation> searchAmenityReservationsByKeyword(String keyword, String status, Pageable pageable);
+        @Query("SELECT ar FROM AmenityReservation ar WHERE " +
+                        "(CASE WHEN ?1 = '' THEN 1 ELSE 0 END = 1) OR " +
+                        "(LOWER(ar.status) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
+                        "LOWER(ar.remarks) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
+                        "LOWER(ar.purpose) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
+                        "LOWER(ar.client.firstName) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
+                        "LOWER(ar.client.lastName) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
+                        "LOWER(ar.user.username) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
+                        "LOWER(ar.amenities.name) LIKE LOWER(CONCAT('%', ?1, '%'))) AND " +
+                        "(?2 = 'ALL' OR ar.status = ?2)")
+        Page<AmenityReservation> searchAmenityReservationsByKeyword(String keyword, String status, Pageable pageable);
 
-    @Query("SELECT ar.status, COUNT(ar) FROM AmenityReservation ar GROUP BY ar.status")
-    List<Object[]> countReservationsByStatus();
+        @Query("SELECT ar.status, COUNT(ar) FROM AmenityReservation ar GROUP BY ar.status")
+        List<Object[]> countReservationsByStatus();
+
+        @Query("SELECT ar FROM AmenityReservation ar WHERE ar.endDateTime <= :currentTime AND ar.status NOT IN ('COMPLETED', 'CANCELLED')")
+        List<AmenityReservation> findExpiredReservations(LocalDateTime currentTime);
 }
