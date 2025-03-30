@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -57,6 +58,10 @@ public class User {
 
     @Column(name = "address")
     private String address;
+
+    @Lob
+    @Column(name = "profile_image")
+    private String profileImage;
 
     @CreationTimestamp
     @Column(name = "date_created")

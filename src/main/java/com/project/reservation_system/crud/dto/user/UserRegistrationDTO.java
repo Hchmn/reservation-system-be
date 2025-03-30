@@ -22,4 +22,5 @@ public class UserRegistrationDTO {
     private String contact;
     private String email;
     private String address;
+    private String profileImage;
 }

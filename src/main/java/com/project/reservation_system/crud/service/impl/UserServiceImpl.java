@@ -41,6 +41,7 @@ public class UserServiceImpl implements IUserService {
                 .contact(userRegistrationDTO.getContact())
                 .email(userRegistrationDTO.getEmail())
                 .address(userRegistrationDTO.getAddress())
+                .profileImage(userRegistrationDTO.getProfileImage())
                 .build();
 
         // Save the user to the database
@@ -65,6 +66,7 @@ public class UserServiceImpl implements IUserService {
             user.setEmail(userUpdateDTO.getEmail());
             user.setAddress(userUpdateDTO.getAddress());
             user.setRole(userUpdateDTO.getRole());
+            user.setProfileImage(userUpdateDTO.getProfileImage());
 
             return userRepository.save(user);
         } else {
