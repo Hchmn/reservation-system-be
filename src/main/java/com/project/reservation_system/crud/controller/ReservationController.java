@@ -26,18 +26,9 @@ public class ReservationController {
     private IReservationService iReservationService;
 
     @GetMapping
-    public ApiResponse<?> getReservation(@RequestParam(required = true) Reservations reservations,
-            @RequestParam(required = true) Date date, Pageable pageable) {
-        switch (reservations) {
-            case AMENITIES:
-                return DefaultResponse
-                        .displayFoundObject(iReservationService.getAmenityReservationByDate(date, pageable));
-            case EQUIPMENT:
-                return DefaultResponse
-                        .displayFoundObject(iReservationService.getEquipmentReservationByDate(date, pageable));
-            default:
-                return DefaultResponse.displayUnprocessable("Invalid reservation type");
-        }
+    public ApiResponse<?> getReservation(
+            @RequestParam(required = true) Date date) {
+        return DefaultResponse.displayFoundObject(iReservationService.getBothReservationByDate(date));
     }
 
     @PostMapping

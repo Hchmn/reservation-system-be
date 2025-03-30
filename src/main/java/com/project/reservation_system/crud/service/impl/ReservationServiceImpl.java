@@ -49,15 +49,19 @@ public class ReservationServiceImpl implements IReservationService {
         @Autowired
         private EquipmentReservationDetailsRepository equipmentReservationDetailsRepository;
 
-        @Override
-        public Page<AmenityReservation> getAmenityReservationByDate(Date dateToday, Pageable pageable) {
-                return amenityReservationRepository.findReservationsByDate(dateToday, pageable);
-        }
+        // @Override
+        // public Page<AmenityReservation> getAmenityReservationByDate(Date dateToday,
+        // Pageable pageable) {
+        // return amenityReservationRepository.findReservationsByDate(dateToday,
+        // pageable);
+        // }
 
-        @Override
-        public Page<EquipmentReservation> getEquipmentReservationByDate(Date dateToday, Pageable pageable) {
-                return equipmentReservationRepository.findReservationsByDate(dateToday, pageable);
-        }
+        // @Override
+        // public Page<EquipmentReservation> getEquipmentReservationByDate(Date
+        // dateToday, Pageable pageable) {
+        // return equipmentReservationRepository.findReservationsByDate(dateToday,
+        // pageable);
+        // }
 
         @Override
         public AmenityEquipmentReservationDTO createBothReservation(
@@ -142,6 +146,20 @@ public class ReservationServiceImpl implements IReservationService {
 
                 result.setAmenityReservations(amenityReservations);
                 result.setEquipmentReservations(equipmentReservations);
+                return result;
+        }
+
+        @Override
+        public BothReservationResponse getBothReservationByDate(Date dateToday) {
+                BothReservationResponse result = new BothReservationResponse();
+                List<AmenityReservation> amenityReservations = amenityReservationRepository
+                                .findReservationsByDate(dateToday);
+                List<EquipmentReservation> equipmentReservations = equipmentReservationRepository
+                                .findReservationsByDate(dateToday);
+
+                result.setAmenityReservations(amenityReservations);
+                result.setEquipmentReservations(equipmentReservations);
+
                 return result;
         }
 }

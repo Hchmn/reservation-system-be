@@ -13,28 +13,29 @@ import org.springframework.data.repository.query.Param;
 import com.project.reservation_system.crud.entity.EquipmentReservation;
 
 public interface EquipmentReservationRepository extends JpaRepository<EquipmentReservation, Long> {
-    @Query("SELECT er FROM EquipmentReservation er WHERE " +
-            "(CASE WHEN ?1 = '' THEN 1 ELSE 0 END = 1) OR " +
-            "(LOWER(er.status) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-            "LOWER(er.remarks) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-            "LOWER(er.purpose) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-            "LOWER(er.client.firstName) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-            "LOWER(er.client.lastName) LIKE LOWER(CONCAT('%', ?1, '%'))) AND " +
-            "(?2 = 'ALL' OR er.status = ?2)")
-    Page<EquipmentReservation> searchEquipmentReservationsByKeyword(String keyword, String status, Pageable pageable);
+        @Query("SELECT er FROM EquipmentReservation er WHERE " +
+                        "(CASE WHEN ?1 = '' THEN 1 ELSE 0 END = 1) OR " +
+                        "(LOWER(er.status) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
+                        "LOWER(er.remarks) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
+                        "LOWER(er.purpose) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
+                        "LOWER(er.client.firstName) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
+                        "LOWER(er.client.lastName) LIKE LOWER(CONCAT('%', ?1, '%'))) AND " +
+                        "(?2 = 'ALL' OR er.status = ?2)")
+        Page<EquipmentReservation> searchEquipmentReservationsByKeyword(String keyword, String status,
+                        Pageable pageable);
 
-    @Query("SELECT er.status, COUNT(er) FROM EquipmentReservation er GROUP BY er.status")
-    List<Object[]> countReservationsByStatus();
+        @Query("SELECT er.status, COUNT(er) FROM EquipmentReservation er GROUP BY er.status")
+        List<Object[]> countReservationsByStatus();
 
-    @Query("SELECT er FROM EquipmentReservation er WHERE er.endDateTime <= :currentTime AND er.status NOT IN ('COMPLETED', 'CANCELLED')")
-    List<EquipmentReservation> findExpiredReservations(LocalDateTime currentTime);
+        @Query("SELECT er FROM EquipmentReservation er WHERE er.endDateTime <= :currentTime AND er.status NOT IN ('COMPLETED', 'CANCELLED')")
+        List<EquipmentReservation> findExpiredReservations(LocalDateTime currentTime);
 
-    @Query("SELECT er FROM EquipmentReservation er WHERE DATE(er.startDateTime) = DATE(:dateToday)")
-    Page<EquipmentReservation> findReservationsByDate(Date dateToday, Pageable pageable);
+        @Query("SELECT er FROM EquipmentReservation er WHERE DATE(er.startDateTime) = DATE(:dateToday)")
+        List<EquipmentReservation> findReservationsByDate(Date dateToday);
 
-    @Query("SELECT e FROM EquipmentReservation e WHERE e.startDateTime BETWEEN :startDate AND :endDate AND e.status = :status")
-    List<EquipmentReservation> findReservationsByStartDateTimeBetweenAndStatus(
-            @Param("startDate") Date startDate,
-            @Param("endDate") Date endDate,
-            @Param("status") String status);
+        @Query("SELECT e FROM EquipmentReservation e WHERE e.startDateTime BETWEEN :startDate AND :endDate AND e.status = :status")
+        List<EquipmentReservation> findReservationsByStartDateTimeBetweenAndStatus(
+                        @Param("startDate") Date startDate,
+                        @Param("endDate") Date endDate,
+                        @Param("status") String status);
 }
