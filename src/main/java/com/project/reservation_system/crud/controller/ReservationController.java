@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.reservation_system.crud.dto.AmenityEquipmentReservationDTO;
 import com.project.reservation_system.crud.service.IReservationService;
+import com.project.reservation_system.global.constant.ReservationStatus;
 import com.project.reservation_system.global.constant.Reservations;
 import com.project.reservation_system.global.response.ApiResponse;
 import com.project.reservation_system.global.response.DefaultResponse;
@@ -49,6 +50,14 @@ public class ReservationController {
             return DefaultResponse.displayUnprocessable("Failed to create both reservations");
         }
 
+    }
+
+    @GetMapping("/report")
+    public ApiResponse<?> getBothReservation(@RequestParam(required = true) Date startDate,
+            @RequestParam(required = true) Date endDate,
+            @RequestParam(required = true) ReservationStatus status) {
+
+        return DefaultResponse.displayFoundObject(iReservationService.fetchBothReservation(startDate, endDate, status));
     }
 
 }

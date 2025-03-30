@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.project.reservation_system.crud.entity.EquipmentReservation;
 
@@ -30,4 +31,10 @@ public interface EquipmentReservationRepository extends JpaRepository<EquipmentR
 
     @Query("SELECT er FROM EquipmentReservation er WHERE DATE(er.startDateTime) = DATE(:dateToday)")
     Page<EquipmentReservation> findReservationsByDate(Date dateToday, Pageable pageable);
+
+    @Query("SELECT e FROM EquipmentReservation e WHERE e.startDateTime BETWEEN :startDate AND :endDate AND e.status = :status")
+    List<EquipmentReservation> findReservationsByStartDateTimeBetweenAndStatus(
+            @Param("startDate") Date startDate,
+            @Param("endDate") Date endDate,
+            @Param("status") String status);
 }

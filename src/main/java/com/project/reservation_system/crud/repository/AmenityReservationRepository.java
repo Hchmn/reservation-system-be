@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.project.reservation_system.crud.entity.Amenities;
 import com.project.reservation_system.crud.entity.AmenityReservation;
@@ -41,4 +42,10 @@ public interface AmenityReservationRepository extends JpaRepository<AmenityReser
 
         @Query("SELECT ar FROM AmenityReservation ar WHERE DATE(ar.startDateTime) = DATE(:dateToday)")
         Page<AmenityReservation> findReservationsByDate(Date dateToday, Pageable pageable);
+
+        @Query("SELECT ar FROM AmenityReservation ar WHERE ar.startDateTime BETWEEN :startDate AND :endDate AND ar.status = :status")
+        List<AmenityReservation> findReservationsBetweenDatesAndStatus(
+                        @Param("startDate") Date startDate,
+                        @Param("endDate") Date endDate,
+                        @Param("status") String status);
 }
