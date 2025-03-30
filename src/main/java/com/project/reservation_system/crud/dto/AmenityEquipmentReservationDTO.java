@@ -15,6 +15,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class AmenityEquipmentReservationDTO {
     private ClientDTO client;
-    private EquipmentReservationDTO equipmentReservationDTO;
-    private AmenityReservationDTO amenityReservationDTO;
+    private EquipmentReserveDTO equipmentReserveDTO;
+    private AmenityReserveDTO amenityReserveDTO;
 }

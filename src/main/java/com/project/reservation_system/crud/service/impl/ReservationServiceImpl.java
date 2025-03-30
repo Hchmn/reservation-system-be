@@ -75,39 +75,39 @@ public class ReservationServiceImpl implements IReservationService {
                 client = clientRepository.save(client);
 
                 Amenities amenities = amenitiesRepository
-                                .findById(amenityEquipmentReservationDTO.getAmenityReservationDTO().getAmenityId())
+                                .findById(amenityEquipmentReservationDTO.getAmenityReserveDTO().getAmenityId())
                                 .orElseThrow(() -> new IllegalArgumentException(
                                                 "Amenities not found with ID: "
                                                                 + amenityEquipmentReservationDTO
-                                                                                .getAmenityReservationDTO()
+                                                                                .getAmenityReserveDTO()
                                                                                 .getAmenityId()));
 
                 AmenityReservation amenityReservation = AmenityReservation.builder()
                                 .amenities(amenities)
                                 .client(client)
-                                .endDateTime(amenityEquipmentReservationDTO.getAmenityReservationDTO().getEndDateTime())
-                                .startDateTime(amenityEquipmentReservationDTO.getAmenityReservationDTO()
+                                .endDateTime(amenityEquipmentReservationDTO.getAmenityReserveDTO().getEndDateTime())
+                                .startDateTime(amenityEquipmentReservationDTO.getAmenityReserveDTO()
                                                 .getStartDateTime())
-                                .purpose(amenityEquipmentReservationDTO.getAmenityReservationDTO().getPurpose())
-                                .remarks(amenityEquipmentReservationDTO.getAmenityReservationDTO().getRemarks())
-                                .status(amenityEquipmentReservationDTO.getAmenityReservationDTO().getStatus())
+                                .purpose(amenityEquipmentReservationDTO.getAmenityReserveDTO().getPurpose())
+                                .remarks(amenityEquipmentReservationDTO.getAmenityReserveDTO().getRemarks())
+                                .status(amenityEquipmentReservationDTO.getAmenityReserveDTO().getStatus())
                                 .build();
 
                 amenityReservationRepository.save(amenityReservation);
 
                 EquipmentReservation equipmentReservation = EquipmentReservation.builder()
                                 .client(client)
-                                .endDateTime(amenityEquipmentReservationDTO.getEquipmentReservationDTO()
+                                .endDateTime(amenityEquipmentReservationDTO.getEquipmentReserveDTO()
                                                 .getEndDateTime())
-                                .startDateTime(amenityEquipmentReservationDTO.getEquipmentReservationDTO()
+                                .startDateTime(amenityEquipmentReservationDTO.getEquipmentReserveDTO()
                                                 .getStartDateTime())
-                                .purpose(amenityEquipmentReservationDTO.getEquipmentReservationDTO().getPurpose())
-                                .status(amenityEquipmentReservationDTO.getEquipmentReservationDTO().getStatus())
+                                .purpose(amenityEquipmentReservationDTO.getEquipmentReserveDTO().getPurpose())
+                                .status(amenityEquipmentReservationDTO.getEquipmentReserveDTO().getStatus())
                                 .build();
 
                 equipmentReservation = equipmentReservationRepository.save(equipmentReservation);
 
-                for (EquipmentDetailDTO equipmentDetailDTO : amenityEquipmentReservationDTO.getEquipmentReservationDTO()
+                for (EquipmentDetailDTO equipmentDetailDTO : amenityEquipmentReservationDTO.getEquipmentReserveDTO()
                                 .getEquipments()) {
                         Equipment equipment = equipmentRepository.findById(equipmentDetailDTO.getEquipmentId())
                                         .orElseThrow(() -> new IllegalArgumentException(

@@ -1,6 +1,9 @@
 package com.project.reservation_system.crud.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.project.reservation_system.crud.dto.amenity.reservation.EquipmentDetailDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,11 +16,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AmenityReservationDTO {
-    private long amenityId;
+public class EquipmentReserveDTO {
+    private List<EquipmentDetailDTO> equipments;
     private String purpose;
     private String status;
-    private String remarks;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
 }
