@@ -1,5 +1,7 @@
 package com.project.reservation_system.crud.dto.equipment;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,4 +18,5 @@ public class EquipmentDTO {
     private String type;
     private int quantity;
     private String category;
+    private Date dateAcquired;
 }

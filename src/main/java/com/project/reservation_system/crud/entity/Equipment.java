@@ -41,6 +41,9 @@ public class Equipment {
     @Column(name = "category")
     private String category;
 
+    @Column(name = "date_acquired")
+    private Date dateAcquired;
+
     @CreationTimestamp
     @Column(name = "date_created")
     private Date dateCreated;
