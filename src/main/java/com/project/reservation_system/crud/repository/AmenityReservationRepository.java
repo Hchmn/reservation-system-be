@@ -42,7 +42,7 @@ public interface AmenityReservationRepository extends JpaRepository<AmenityReser
         @Query("SELECT ar FROM AmenityReservation ar WHERE DATE(ar.startDateTime) = DATE(:dateToday)")
         List<AmenityReservation> findReservationsByDate(String dateToday);
 
-        @Query("SELECT ar FROM AmenityReservation ar WHERE ar.startDateTime BETWEEN :startDate AND :endDate AND ar.status = :status")
+        @Query("SELECT ar FROM AmenityReservation ar WHERE DATE(ar.startDateTime) BETWEEN DATE(:startDate) AND DATE(:endDate) AND ar.status = :status")
         List<AmenityReservation> findReservationsBetweenDatesAndStatus(
                         @Param("startDate") String startDate,
                         @Param("endDate") String endDate,
