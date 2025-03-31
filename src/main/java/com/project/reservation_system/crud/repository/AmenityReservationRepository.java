@@ -44,7 +44,7 @@ public interface AmenityReservationRepository extends JpaRepository<AmenityReser
 
         @Query("SELECT ar FROM AmenityReservation ar WHERE ar.startDateTime BETWEEN :startDate AND :endDate AND ar.status = :status")
         List<AmenityReservation> findReservationsBetweenDatesAndStatus(
-                        @Param("startDate") Date startDate,
-                        @Param("endDate") Date endDate,
+                        @Param("startDate") String startDate,
+                        @Param("endDate") String endDate,
                         @Param("status") String status);
 }

@@ -1,7 +1,5 @@
 package com.project.reservation_system.crud.controller;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,8 +40,8 @@ public class ReservationController {
     }
 
     @GetMapping("/report")
-    public ApiResponse<?> getBothReservation(@RequestParam(required = true) Date startDate,
-            @RequestParam(required = true) Date endDate,
+    public ApiResponse<?> getBothReservation(@RequestParam(required = true) String startDate,
+            @RequestParam(required = true) String endDate,
             @RequestParam(required = true) ReservationStatus status) {
 
         return DefaultResponse.displayFoundObject(iReservationService.fetchBothReservation(startDate, endDate, status));

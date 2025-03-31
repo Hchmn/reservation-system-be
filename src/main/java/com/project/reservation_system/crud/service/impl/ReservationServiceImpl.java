@@ -134,7 +134,7 @@ public class ReservationServiceImpl implements IReservationService {
         }
 
         @Override
-        public BothReservationResponse fetchBothReservation(Date startDate, Date endDate, ReservationStatus status) {
+        public BothReservationResponse fetchBothReservation(String startDate, String endDate, ReservationStatus status) {
                 BothReservationResponse result = new BothReservationResponse();
 
                 // fetch amenity reservation within the start and end date and also status
