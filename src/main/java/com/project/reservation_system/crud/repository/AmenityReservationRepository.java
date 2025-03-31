@@ -29,7 +29,7 @@ public interface AmenityReservationRepository extends JpaRepository<AmenityReser
                         "LOWER(ar.purpose) LIKE %?1% OR " +
                         "LOWER(ar.client.firstName) LIKE %?1% OR " +
                         "LOWER(ar.client.lastName) LIKE %?1% OR " +
-                        "LOWER(ar.amenities.name) LIKE %?1% ) AND " + 
+                        "LOWER(ar.amenities.name) LIKE %?1% ) AND " +
                         "(?2 = 'ALL' OR ar.status = ?2) ")
         Page<AmenityReservation> searchAmenityReservationsByKeyword(String keyword, String status, Pageable pageable);
 

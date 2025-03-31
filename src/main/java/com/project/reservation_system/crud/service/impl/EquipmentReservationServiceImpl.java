@@ -89,7 +89,7 @@ public class EquipmentReservationServiceImpl implements IEquipmentReservationSer
         public Page<EquipmentReservation> searchEquipmentReservations(String keyword,
                         EquipmentReservationStatus equipmentReservationStatus, Pageable pageable) {
                 return equipmentReservationRepository.searchEquipmentReservationsByKeyword(
-                                keyword, equipmentReservationStatus.name(), pageable);
+                                (keyword == null ? "" : keyword.toLowerCase()), equipmentReservationStatus.name(), pageable);
         }
 
         public List<EquipmentReservationStatusCountDTO> countDashboardStatuses() {

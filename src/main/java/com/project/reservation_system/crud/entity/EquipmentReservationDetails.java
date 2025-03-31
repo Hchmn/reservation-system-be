@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,6 +36,7 @@ public class EquipmentReservationDetails {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "equipment_reservation_id")
+    @JsonBackReference
     private EquipmentReservation equipmentReservation;
 
     @ManyToOne(fetch = FetchType.EAGER)

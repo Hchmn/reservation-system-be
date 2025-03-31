@@ -35,6 +35,7 @@ public class EquipmentReservationController {
             return DefaultResponse.displayCreatedObject(equipmentReservation);
 
         } catch (Exception e) {
+            System.out.println("EXCEPTION "+ e.getMessage());
             return DefaultResponse.displayUnprocessable("Failed to create equipment reservation");
         }
     }

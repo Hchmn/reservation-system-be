@@ -15,11 +15,11 @@ import com.project.reservation_system.crud.entity.EquipmentReservation;
 public interface EquipmentReservationRepository extends JpaRepository<EquipmentReservation, Long> {
         @Query("SELECT er FROM EquipmentReservation er WHERE " +
                         "(CASE WHEN ?1 = '' THEN 1 ELSE 0 END = 1) OR " +
-                        "(LOWER(er.status) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-                        "LOWER(er.remarks) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-                        "LOWER(er.purpose) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-                        "LOWER(er.client.firstName) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-                        "LOWER(er.client.lastName) LIKE LOWER(CONCAT('%', ?1, '%'))) AND " +
+                        "(LOWER(er.status) LIKE %?1% OR " +
+                        "LOWER(er.remarks) LIKE %?1% OR " +
+                        "LOWER(er.purpose) LIKE %?1% OR " +
+                        "LOWER(er.client.firstName) LIKE %?1% OR " +
+                        "LOWER(er.client.lastName) LIKE %?1% ) AND " +
                         "(?2 = 'ALL' OR er.status = ?2)")
         Page<EquipmentReservation> searchEquipmentReservationsByKeyword(String keyword, String status,
                         Pageable pageable);
