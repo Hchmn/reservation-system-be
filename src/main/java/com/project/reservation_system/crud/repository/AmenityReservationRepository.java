@@ -24,14 +24,13 @@ public interface AmenityReservationRepository extends JpaRepository<AmenityReser
 
         @Query("SELECT ar FROM AmenityReservation ar WHERE " +
                         "(CASE WHEN ?1 = '' THEN 1 ELSE 0 END = 1) OR " +
-                        "(LOWER(ar.status) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-                        "LOWER(ar.remarks) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-                        "LOWER(ar.purpose) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-                        "LOWER(ar.client.firstName) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-                        "LOWER(ar.client.lastName) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-                        "LOWER(ar.user.username) LIKE LOWER(CONCAT('%', ?1, '%')) OR " +
-                        "LOWER(ar.amenities.name) LIKE LOWER(CONCAT('%', ?1, '%'))) AND " +
-                        "(?2 = 'ALL' OR ar.status = ?2)")
+                        "(LOWER(ar.status) LIKE %?1%  OR " +
+                        "LOWER(ar.remarks) LIKE %?1% OR " +
+                        "LOWER(ar.purpose) LIKE %?1% OR " +
+                        "LOWER(ar.client.firstName) LIKE %?1% OR " +
+                        "LOWER(ar.client.lastName) LIKE %?1% OR " +
+                        "LOWER(ar.amenities.name) LIKE %?1% ) AND " + 
+                        "(?2 = 'ALL' OR ar.status = ?2) ")
         Page<AmenityReservation> searchAmenityReservationsByKeyword(String keyword, String status, Pageable pageable);
 
         @Query("SELECT ar.status, COUNT(ar) FROM AmenityReservation ar GROUP BY ar.status")

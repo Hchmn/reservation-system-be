@@ -121,8 +121,10 @@ public class AmenityReservationServiceImpl implements IAmenityReservationService
         @Override
         public Page<AmenityReservation> searchAmenityReservation(String keyword,
                         AmenityReservationStatus amenityReservationStatus, Pageable pageable) {
-                return amenityReservationRepository.searchAmenityReservationsByKeyword(keyword,
+                return amenityReservationRepository.searchAmenityReservationsByKeyword(
+                                (keyword == null ? "" : keyword.toLowerCase()),
                                 amenityReservationStatus.name(), pageable);
+                // return amenityReservationRepository.findAll(pageable);
         }
 
         @Override
