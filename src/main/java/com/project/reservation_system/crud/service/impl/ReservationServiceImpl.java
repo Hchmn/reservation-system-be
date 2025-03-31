@@ -1,5 +1,6 @@
 package com.project.reservation_system.crud.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import com.project.reservation_system.crud.repository.ClientRepository;
 import com.project.reservation_system.crud.repository.EquipmentRepository;
 import com.project.reservation_system.crud.repository.EquipmentReservationDetailsRepository;
 import com.project.reservation_system.crud.repository.EquipmentReservationRepository;
+import com.project.reservation_system.crud.response.BothMonthStartAndEndDate;
 import com.project.reservation_system.crud.response.BothReservationResponse;
 import com.project.reservation_system.crud.service.IReservationService;
 import com.project.reservation_system.global.constant.ReservationStatus;
@@ -134,7 +136,8 @@ public class ReservationServiceImpl implements IReservationService {
         }
 
         @Override
-        public BothReservationResponse fetchBothReservation(String startDate, String endDate, ReservationStatus status) {
+        public BothReservationResponse fetchBothReservation(String startDate, String endDate,
+                        ReservationStatus status) {
                 BothReservationResponse result = new BothReservationResponse();
 
                 // fetch amenity reservation within the start and end date and also status
@@ -161,5 +164,30 @@ public class ReservationServiceImpl implements IReservationService {
                 result.setEquipmentReservations(equipmentReservations);
 
                 return result;
+        }
+
+        @Override
+        public List<BothMonthStartAndEndDate> getMonthlyReservation(String monthYear) {
+                List<BothMonthStartAndEndDate> result = new ArrayList<>();
+                List<AmenityReservation> amenityReservations = amenityReservationRepository
+                                .findReservationsByMonthYear(monthYear);
+                List<EquipmentReservation> equipmentReservations = equipmentReservationRepository
+                                .findReservationsByMonthYear(monthYear);
+
+                for (AmenityReservation amenityReservation : amenityReservations) {
+                        BothMonthStartAndEndDate bothMonthStartAndEndDate = new BothMonthStartAndEndDate();
+                        bothMonthStartAndEndDate.setStartDate(amenityReservation.getStartDateTime());
+                        bothMonthStartAndEndDate.setEndDate(amenityReservation.getEndDateTime());
+                        result.add(bothMonthStartAndEndDate);
+                }
+
+                for (EquipmentReservation equipmentReservation : equipmentReservations) {
+                        BothMonthStartAndEndDate bothMonthStartAndEndDate = new BothMonthStartAndEndDate();
+                        bothMonthStartAndEndDate.setStartDate(equipmentReservation.getStartDateTime());
+                        bothMonthStartAndEndDate.setEndDate(equipmentReservation.getEndDateTime());
+                        result.add(bothMonthStartAndEndDate);
+                }
+                return result;
+
         }
 }

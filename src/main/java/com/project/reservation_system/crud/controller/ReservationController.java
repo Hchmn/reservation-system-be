@@ -27,6 +27,12 @@ public class ReservationController {
         return DefaultResponse.displayFoundObject(iReservationService.getBothReservationByDate(date));
     }
 
+    @GetMapping("/monthly-reservation")
+    public ApiResponse<?> getMonthlyReservation(
+            @RequestParam(required = true) String monthYear) {
+        return DefaultResponse.displayFoundObject(iReservationService.getMonthlyReservation(monthYear));
+    }
+
     @PostMapping
     public ApiResponse<?> submitBothReservation(
             @RequestBody AmenityEquipmentReservationDTO amenityEquipmentReservationDTO) {

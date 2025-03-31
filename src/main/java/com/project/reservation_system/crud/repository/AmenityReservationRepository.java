@@ -47,4 +47,9 @@ public interface AmenityReservationRepository extends JpaRepository<AmenityReser
                         @Param("startDate") String startDate,
                         @Param("endDate") String endDate,
                         @Param("status") String status);
+
+        @Query(value = "SELECT * FROM tbl_amenity_reservation ar " +
+                        "WHERE (FORMAT(ar.start_date_time, 'MMMM yyyy') = :monthYear " +
+                        "OR FORMAT(ar.end_date_time, 'MMMM yyyy') = :monthYear)", nativeQuery = true)
+        List<AmenityReservation> findReservationsByMonthYear(@Param("monthYear") String monthYear);
 }
