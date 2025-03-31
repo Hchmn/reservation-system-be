@@ -31,7 +31,7 @@ public interface EquipmentReservationRepository extends JpaRepository<EquipmentR
         List<EquipmentReservation> findExpiredReservations(LocalDateTime currentTime);
 
         @Query("SELECT er FROM EquipmentReservation er WHERE DATE(er.startDateTime) = DATE(:dateToday)")
-        List<EquipmentReservation> findReservationsByDate(Date dateToday);
+        List<EquipmentReservation> findReservationsByDate(String dateToday);
 
         @Query("SELECT e FROM EquipmentReservation e WHERE e.startDateTime BETWEEN :startDate AND :endDate AND e.status = :status")
         List<EquipmentReservation> findReservationsByStartDateTimeBetweenAndStatus(

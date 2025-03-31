@@ -8,7 +8,7 @@ import com.project.reservation_system.global.constant.ReservationStatus;
 
 public interface IReservationService {
     
-    BothReservationResponse getBothReservationByDate(Date dateToday);
+    BothReservationResponse getBothReservationByDate(String dateToday);
     // Page<EquipmentReservation> getEquipmentReservationByDate(Date dateToday, Pageable pageable);
     AmenityEquipmentReservationDTO createBothReservation(AmenityEquipmentReservationDTO amenityEquipmentReservationDTO);
     BothReservationResponse fetchBothReservation(Date startDate, Date endDate, ReservationStatus status);

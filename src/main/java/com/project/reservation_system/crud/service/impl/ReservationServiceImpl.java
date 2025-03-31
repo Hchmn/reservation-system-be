@@ -150,7 +150,7 @@ public class ReservationServiceImpl implements IReservationService {
         }
 
         @Override
-        public BothReservationResponse getBothReservationByDate(Date dateToday) {
+        public BothReservationResponse getBothReservationByDate(String dateToday) {
                 BothReservationResponse result = new BothReservationResponse();
                 List<AmenityReservation> amenityReservations = amenityReservationRepository
                                 .findReservationsByDate(dateToday);

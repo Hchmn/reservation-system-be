@@ -25,7 +25,7 @@ public class ReservationController {
 
     @GetMapping
     public ApiResponse<?> getReservation(
-            @RequestParam(required = true) Date date) {
+            @RequestParam(required = true) String date) {
         return DefaultResponse.displayFoundObject(iReservationService.getBothReservationByDate(date));
     }
 
