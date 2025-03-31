@@ -12,14 +12,16 @@ public class CustomUserDetails implements UserDetails {
     private String firstName;
     private String lastName;
     private Collection<? extends GrantedAuthority> authorities;
+    private String profileImage;
 
     public CustomUserDetails(String username, String password, String firstName, String lastName,
-            Collection<? extends GrantedAuthority> authorities) {
+            Collection<? extends GrantedAuthority> authorities, String profileImage) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.authorities = authorities;
+        this.profileImage = profileImage;
     }
 
     @Override
@@ -63,5 +65,9 @@ public class CustomUserDetails implements UserDetails {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public String getProfileImage(){
+        return profileImage;
     }
 }

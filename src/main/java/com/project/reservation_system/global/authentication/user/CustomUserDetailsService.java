@@ -31,6 +31,7 @@ public class CustomUserDetailsService implements org.springframework.security.co
                 user.getPassword(),
                 user.getFirstName(),
                 user.getLastName(),
-                AuthorityUtils.createAuthorityList(user.getRole()));
+                AuthorityUtils.createAuthorityList(user.getRole()), 
+                user.getProfileImage());
     }
 }

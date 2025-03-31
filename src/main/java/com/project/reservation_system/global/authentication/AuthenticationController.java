@@ -54,8 +54,9 @@ public class AuthenticationController {
                 .map(grantedAuthority -> grantedAuthority.getAuthority())
                 .collect(Collectors.joining(", "));
 
+        String profileImage = ((CustomUserDetails) userDetails).getProfileImage();
         // Return both JWT and user details in the response
-        LoginResponseDTO response = new LoginResponseDTO(jwt, username, firstName, lastName, role);
+        LoginResponseDTO response = new LoginResponseDTO(jwt, username, firstName, lastName, role, profileImage);
 
         return DefaultResponse.displayFoundObject(response);
     }
