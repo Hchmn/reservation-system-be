@@ -72,7 +72,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .authorizeHttpRequests((authz) -> authz
                         .antMatchers("/public/**").permitAll()
                         .antMatchers(AUTH_WHITELIST).permitAll()
-                        .anyRequest().permitAll())
+                        .anyRequest().authenticated())
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // No sessions for
                                                                                              // stateless API
 
