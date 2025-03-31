@@ -1,5 +1,7 @@
 package com.project.reservation_system.crud.service.impl;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -140,12 +142,23 @@ public class ReservationServiceImpl implements IReservationService {
                         ReservationStatus status) {
                 BothReservationResponse result = new BothReservationResponse();
 
+                // DateTimeFormatter to parse date with time
+                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+                // Set the startDate to 00:00:00
+                LocalDateTime start = LocalDateTime.parse(startDate + " 00:00:00", dateTimeFormatter);
+
+                // If endDate has no time, default to 23:59:59
+                LocalDateTime end = endDate.contains(":")
+                                ? LocalDateTime.parse(endDate, dateTimeFormatter)
+                                : LocalDateTime.parse(endDate + " 23:59:59", dateTimeFormatter);
+
                 // fetch amenity reservation within the start and end date and also status
                 List<AmenityReservation> amenityReservations = amenityReservationRepository
-                                .findReservationsBetweenDatesAndStatus(startDate, endDate, status.name());
+                                .findReservationsBetweenDatesAndStatus(start, end, status.name());
 
                 List<EquipmentReservation> equipmentReservations = equipmentReservationRepository
-                                .findReservationsByStartDateTimeBetweenAndStatus(startDate, endDate, status.name());
+                                .findReservationsByStartDateTimeBetweenAndStatus(start, end, status.name());
 
                 result.setAmenityReservations(amenityReservations);
                 result.setEquipmentReservations(equipmentReservations);
@@ -167,12 +180,14 @@ public class ReservationServiceImpl implements IReservationService {
         }
 
         @Override
-        public List<BothMonthStartAndEndDate> getMonthlyReservation(String monthYear) {
+        public List<BothMonthStartAndEndDate> getMonthlyReservation() {
+
+                List<String> statuses = List.of("UPCOMING", "ONGOING");
                 List<BothMonthStartAndEndDate> result = new ArrayList<>();
                 List<AmenityReservation> amenityReservations = amenityReservationRepository
-                                .findReservationsByMonthYear(monthYear);
+                                .findReservationsByStatus(statuses);
                 List<EquipmentReservation> equipmentReservations = equipmentReservationRepository
-                                .findReservationsByMonthYear(monthYear);
+                                .findReservationsByStatus(statuses);
 
                 for (AmenityReservation amenityReservation : amenityReservations) {
                         BothMonthStartAndEndDate bothMonthStartAndEndDate = new BothMonthStartAndEndDate();
@@ -190,4 +205,5 @@ public class ReservationServiceImpl implements IReservationService {
                 return result;
 
         }
+
 }

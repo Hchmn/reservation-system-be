@@ -42,14 +42,13 @@ public interface AmenityReservationRepository extends JpaRepository<AmenityReser
         @Query("SELECT ar FROM AmenityReservation ar WHERE DATE(ar.startDateTime) = DATE(:dateToday)")
         List<AmenityReservation> findReservationsByDate(String dateToday);
 
-        @Query("SELECT ar FROM AmenityReservation ar WHERE DATE(ar.startDateTime) BETWEEN DATE(:startDate) AND DATE(:endDate) AND ar.status = :status")
+        @Query("SELECT ar FROM AmenityReservation ar WHERE ar.startDateTime BETWEEN :startDate AND :endDate AND ar.status = :status")
         List<AmenityReservation> findReservationsBetweenDatesAndStatus(
-                        @Param("startDate") String startDate,
-                        @Param("endDate") String endDate,
+                        @Param("startDate") LocalDateTime startDate,
+                        @Param("endDate") LocalDateTime endDate,
                         @Param("status") String status);
 
         @Query(value = "SELECT * FROM tbl_amenity_reservation ar " +
-                        "WHERE (FORMAT(ar.start_date_time, 'MMMM yyyy') = :monthYear " +
-                        "OR FORMAT(ar.end_date_time, 'MMMM yyyy') = :monthYear)", nativeQuery = true)
-        List<AmenityReservation> findReservationsByMonthYear(@Param("monthYear") String monthYear);
+                        "WHERE ar.status in (:status)", nativeQuery = true)
+        List<AmenityReservation> findReservationsByStatus(@Param("status") List<String> status);
 }

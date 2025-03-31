@@ -35,12 +35,11 @@ public interface EquipmentReservationRepository extends JpaRepository<EquipmentR
 
         @Query("SELECT e FROM EquipmentReservation e WHERE e.startDateTime BETWEEN :startDate AND :endDate AND e.status = :status")
         List<EquipmentReservation> findReservationsByStartDateTimeBetweenAndStatus(
-                        @Param("startDate") String startDate,
-                        @Param("endDate") String endDate,
+                        @Param("startDate") LocalDateTime startDate,
+                        @Param("endDate") LocalDateTime endDate,
                         @Param("status") String status);
 
         @Query(value = "SELECT * FROM tbl_equipment_reservation er " +
-                        "WHERE (FORMAT(er.start_date_time, 'MMMM yyyy') = :monthYear " +
-                        "OR FORMAT(er.end_date_time, 'MMMM yyyy') = :monthYear)", nativeQuery = true)
-        List<EquipmentReservation> findReservationsByMonthYear(@Param("monthYear") String monthYear);
+                        "WHERE er.status in (:status)", nativeQuery = true)
+        List<EquipmentReservation> findReservationsByStatus(@Param("status") List<String> status);
 }

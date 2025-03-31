@@ -28,9 +28,8 @@ public class ReservationController {
     }
 
     @GetMapping("/monthly-reservation")
-    public ApiResponse<?> getMonthlyReservation(
-            @RequestParam(required = true) String monthYear) {
-        return DefaultResponse.displayFoundObject(iReservationService.getMonthlyReservation(monthYear));
+    public ApiResponse<?> getMonthlyReservation() {
+        return DefaultResponse.displayFoundObject(iReservationService.getMonthlyReservation());
     }
 
     @PostMapping

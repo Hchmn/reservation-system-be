@@ -13,5 +13,5 @@ public interface IReservationService {
     // Page<EquipmentReservation> getEquipmentReservationByDate(Date dateToday, Pageable pageable);
     AmenityEquipmentReservationDTO createBothReservation(AmenityEquipmentReservationDTO amenityEquipmentReservationDTO);
     BothReservationResponse fetchBothReservation(String startDate, String endDate, ReservationStatus status);
-    List<BothMonthStartAndEndDate> getMonthlyReservation(String monthYear);
+    List<BothMonthStartAndEndDate> getMonthlyReservation();
 }
